@@ -103,10 +103,7 @@ returnArgumentsArray(1, 2, 3);
  */
 
 function bindFunction(F, ...theArgs) {
-
-    var g = F.bind(null, ...theArgs);
-
-    return g;
+    return F.bind(null, ...theArgs);
 }
 
 export {
