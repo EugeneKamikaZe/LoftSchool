@@ -62,7 +62,7 @@ returnFnResult(() => 'привет');
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(c) {
+function returnCounter(c = 0) {
     return function F() {
         return ++c;
     }
@@ -102,10 +102,11 @@ returnArgumentsArray(1, 2, 3);
    console.log(newSum()) выведет 6
  */
 
-function bindFunction(F, a, b) {
-    F = F.bind(null, a, b);
+function bindFunction(F, ...theArgs) {
 
-    return F;
+    var g = F.bind(null, ...theArgs);
+
+    return g;
 }
 
 export {
