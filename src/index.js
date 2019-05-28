@@ -35,14 +35,19 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial) {
-    var array = [];
+    var prom = initial || array[0];
 
-    for (let i=0; i<array.length; i++) {
-
-        fn()
+    if (initial) {
+        var i = 0;
+    } else {
+        i = 1;
     }
 
-    return array;
+    for (; i<array.length; i++) {
+        prom = fn(prom, array[i], i, array);
+    }
+
+    return prom;
 }
 
 /*
