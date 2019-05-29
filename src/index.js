@@ -44,7 +44,8 @@ function isAllTrue(array, fn) {
  Задание 2:
 
  2.1: Функция принимает массив и фильтрующую фукнцию и должна вернуть true или false
- Функция должна вернуть true если fn вернула true хотя бы для одного из элементов массива
+ Функция должна вернуть true если fn вернула true хотя бы
+ для одного из элементов массива
 
  2.2: Необходимо выбрасывать исключение в случаях:
    - array не массив или пустой массив (с текстом "empty array")
@@ -57,6 +58,29 @@ function isAllTrue(array, fn) {
    isSomeTrue([1, 2, 3, 4, 5], n => n > 20) // вернет false
  */
 function isSomeTrue(array, fn) {
+    var a = 0;
+
+    if ((Array.isArray(array) == false) || (array.length <=0)) {
+        throw new Error('empty array');
+    } else if (typeof fn != 'function') {
+        throw new Error('fn is not a function');
+    } else {
+
+        for (let i=0; i<array.length; i++) {
+            var c = fn(array[i]);
+
+            if (c == true) {
+                a++;
+            }
+        }
+
+        if (a < 1) {
+            return false;
+        } else (a >= 1)
+        {
+            return true;
+        }
+    }
 }
 
 /*
