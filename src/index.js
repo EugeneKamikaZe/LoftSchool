@@ -3,7 +3,7 @@
 /*
  Задание 1:
 
- 1.1: Функция принимает массив и фи
+ 1.1: Функция принимает массив и фильтрующую фукнцию и должна вернуть true или false
    - fn не является функцией (с текстом "fn is not a function")
 
  Зарпещено использовать встроенные методы для работы с массивами
@@ -76,8 +76,7 @@ function isSomeTrue(array, fn) {
 
         if (a < 1) {
             return false;
-        } else (a >= 1)
-        {
+        } else if (a >= 1) {
             return true;
         }
     }
@@ -95,6 +94,21 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn) {
+    var array = [];
+
+    if (typeof fn != 'function') {
+        throw new Error('fn is not a function');
+    }
+
+    for (let i = 1; i < arguments.length; i++) {
+        try {
+            fn(arguments[i]);
+        } catch (e) {
+            array.push(arguments[i]);
+        }
+    }
+
+    return array;
 }
 
 /*
@@ -105,8 +119,10 @@ function returnBadArguments(fn) {
  4.2: Функция должна вернуть объект, у которого должно быть несколько методов:
    - sum - складывает number с переданными аргументами
    - dif - вычитает из number переданные аргументы
-   - div - делит number на первый аргумент. Результат делится на следующий аргумент (если передан) и так далее
-   - mul - умножает number на первый аргумент. Результат умножается на следующий аргумент (если передан) и так далее
+   - div - делит number на первый аргумент. Результат делится
+   на следующий аргумент (если передан) и так далее
+   - mul - умножает number на первый аргумент. Результат умножается
+   на следующий аргумент (если передан) и так далее
 
  Количество передаваемых в методы аргументов заранее неизвестно
 
@@ -114,7 +130,59 @@ function returnBadArguments(fn) {
    - number не является числом (с текстом "number is not a number")
    - какой-либо из аргументов div является нулем (с текстом "division by 0")
  */
-function calculator() {
+function calculator(number = 0) {
+    if (typeof number != 'number' ) {
+        throw new Error('number is not a number');
+    }
+
+    var obj = {
+        sum: function () {
+            for (let i = 0; i<arguments.length; i++) {
+                if (arguments[i] == 0) {
+                    throw new Error('division by 0');
+                }
+
+                number += arguments[i];
+            }
+
+            return number;
+        },
+        dif: function () {
+            for (let i = 0; i<arguments.length; i++) {
+                if (arguments[i] == 0) {
+                    throw new Error('division by 0');
+                }
+
+                number -= arguments[i];
+            }
+
+            return number;
+        },
+        div: function () {
+            for (let i = 0; i<arguments.length; i++) {
+                if (arguments[i] == 0) {
+                    throw new Error('division by 0');
+                }
+
+                number /= arguments[i];
+            }
+
+            return number;
+        },
+        mul: function () {
+            for (let i = 0; i<arguments.length; i++) {
+                if (arguments[i] == 0) {
+                    throw new Error('division by 0');
+                }
+
+                number *= arguments[i];
+            }
+
+            return number;
+        }
+    }
+
+    return obj;
 }
 
 /* При решении задач, пострайтесь использовать отладчик */
