@@ -36,12 +36,9 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial) {
     var prom = initial || array[0];
+    var i;
 
-    if (initial) {
-        var i = 0;
-    } else {
-        i = 1;
-    }
+    initial ? i = 0: i = 1;
 
     for (; i<array.length; i++) {
         prom = fn(prom, array[i], i, array);
