@@ -59,7 +59,7 @@ function upperProps(obj) {
     var arr = [];
 
     for (let key in obj) {
-        if (key) {
+        if (obj.hasOwnProperty(key)) {
             arr.push(key.toUpperCase());
         }
     }
