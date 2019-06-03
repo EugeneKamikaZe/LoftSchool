@@ -11,25 +11,35 @@
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
 function createDivWithText(text) {
+    let element = document.createElement('div');
+
+    element.innerText = text;
+
+    return element;
 }
 
 /*
  Задание 2:
 
- Функция должна вставлять элемент, переданный в параметре what в начало элемента, переданного в параметре where
+ Функция должна вставлять элемент, переданный в параметре what
+ в начало элемента, переданного в параметре where
 
  Пример:
    prepend(document.querySelector('#one'), document.querySelector('#two')) // добавит элемент переданный первым аргументом в начало элемента переданного вторым аргументом
  */
 function prepend(what, where) {
+
+    where.prepend(what);
 }
 
 /*
  Задание 3:
 
- 3.1: Функция должна перебрать все дочерние элементы узла, переданного в параметре where
+ 3.1: Функция должна перебрать все дочерние элементы узла,
+ переданного в параметре where
 
- 3.2: Функция должна вернуть массив, состоящий из тех дочерних элементов, следующим соседом которых является элемент с тегом P
+ 3.2: Функция должна вернуть массив, состоящий из тех
+ дочерних элементов, следующим соседом которых является элемент с тегом P
 
  Пример:
    Представим, что есть разметка:
@@ -41,18 +51,33 @@ function prepend(what, where) {
       <p></p>
    </dody>
 
-   findAllPSiblings(document.body) // функция должна вернуть массив с элементами div и span т.к. следующим соседом этих элементов является элемент с тегом P
+   findAllPSiblings(document.body) // функция должна вернуть массив
+   с элементами div и span т.к. следующим соседом этих элементов
+   является элемент с тегом P
  */
 function findAllPSiblings(where) {
+    let array = [],
+        element = where.children;
+
+    for (let i=0; i<element.length - 1; i++) {
+        if (element[i].nextElementSibling.nodeName == 'P') {
+            array.push(element[i]);
+        }
+    }
+
+    return array;
 }
 
 /*
  Задание 4:
 
- Функция представленная ниже, перебирает все дочерние узлы типа "элемент" внутри узла переданного в параметре where и возвращает массив из текстового содержимого найденных элементов.
+ Функция представленная ниже, перебирает все дочерние узлы типа
+ "элемент" внутри узла переданного в параметре where и возвращает массив
+ из текстового содержимого найденных элементов.
  Но похоже, что в код функции закралась ошибка и она работает не так, как описано.
 
- Необходимо найти и исправить ошибку в коде так, чтобы функция работала так, как описано выше.
+ Необходимо найти и исправить ошибку в коде так, чтобы функция работала
+ так, как описано выше.
 
  Пример:
    Представим, что есть разметка:
@@ -61,13 +86,16 @@ function findAllPSiblings(where) {
       <div>loftschool</div>
    </dody>
 
-   findError(document.body) // функция должна вернуть массив с элементами 'привет' и 'loftschool'
+   findError(document.body) // функция должна вернуть массив с
+   элементами 'привет' и 'loftschool'
  */
 function findError(where) {
     var result = [];
 
-    for (var child of where.childNodes) {
-        result.push(child.innerText);
+    for (var i = 0; i < where.childNodes.length; i++) {
+        if (where.childNodes[i].nodeType == 1) {
+            result.push(where.childNodes[i].innerText);
+        }
     }
 
     return result;
@@ -76,36 +104,67 @@ function findError(where) {
 /*
  Задание 5:
 
- Функция должна перебрать все дочерние узлы элемента переданного в параметре where и удалить из него все текстовые узлы
+ Функция должна перебрать все дочерние узлы элемента переданного
+ в параметре where и удалить из него все текстовые узлы
 
- Задачу необходимо решить без использования рекурсии, то есть можно не уходить вглубь дерева.
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
+ Задачу необходимо решить без использования рекурсии, то есть
+ можно не уходить вглубь дерева.
+ Так же будьте внимательны при удалении узлов, т.к. можно получить
+ неожиданное поведение при переборе узлов
 
  Пример:
    После выполнения функции, дерево <div></div>привет<p></p>loftchool!!!
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
+    let element = where.childNodes;
+
+    for (let i = 0; i<element.length; i++) {
+        if (element[i].nodeType == 3) {
+            element[i].parentNode.removeChild(element[i]);
+        }
+    }
+
+    return element;
 }
 
 /*
  Задание 6:
 
- Выполнить предудыщее задание с использование рекурсии - то есть необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
+ Выполнить предудыщее задание с использование рекурсии - то
+ есть необходимо заходить внутрь каждого дочернего элемента (углубляться в дерево)
 
- Так же будьте внимательны при удалении узлов, т.к. можно получить неожиданное поведение при переборе узлов
+ Так же будьте внимательны при удалении узлов, т.к.
+ можно получить неожиданное поведение при переборе узлов
 
  Пример:
-   После выполнения функции, дерево <span> <div> <b>привет</b> </div> <p>loftchool</p> !!!</span>
+   После выполнения функции, дерево <span> <div> <b>привет</b>
+   </div> <p>loftchool</p> !!!</span>
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+    let element = where.childNodes;
+
+    for (let i = 0; i<element.length; i++) {
+        let child = element[i];
+
+        if (child.nodeType == 3) {
+            where.removeChild(child);
+            i--;
+        }
+        if (child.nodeType == 1) {
+            deleteTextNodesRecursive(child);
+        }
+    }
+
+    return element;
 }
 
 /*
  Задание 7 *:
 
- Необходимо собрать статистику по всем узлам внутри элемента переданного в параметре root и вернуть ее в виде объекта
+ Необходимо собрать статистику по всем узлам внутри элемента
+ переданного в параметре root и вернуть ее в виде объекта
  Статистика должна содержать:
  - количество текстовых узлов
  - количество элементов каждого класса
@@ -114,7 +173,8 @@ function deleteTextNodesRecursive(where) {
  Постарайтесь не создавать глобальных переменных
 
  Пример:
-   Для дерева <div class="some-class-1"><b>привет!</b> <b class="some-class-1 some-class-2">loftschool</b></div>
+   Для дерева <div class="some-class-1"><b>привет!</b>
+   <b class="some-class-1 some-class-2">loftschool</b></div>
    должен быть возвращен такой объект:
    {
      tags: { DIV: 1, B: 2},
@@ -123,6 +183,36 @@ function deleteTextNodesRecursive(where) {
    }
  */
 function collectDOMStat(root) {
+    let obj = {
+        tags: {},
+        classes: {},
+        texts: 0
+    };
+
+    for (let key of root.childNodes) {
+        if (key.nodeType == 3) {
+            obj.texts++;
+        }
+
+        if (key.nodeType == 1) {
+            if (key.tagName in obj.tags) {
+                obj.tags[key.tagName]++;
+            } else {
+                obj.tags[key.tagName] = 1;
+            }
+        }
+
+        for (let className of key.classList) {
+            if (className in obj.classes ) {
+                obj.classes[className]++;
+            } else {
+                obj.classes[className] = 1;
+            }
+        }
+
+    }
+
+    return obj;
 }
 
 /*
