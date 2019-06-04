@@ -51,7 +51,8 @@ function skipDefault(eventName, target) {
    должно быть сэмулировано события click
  */
 function emulateClick(target) {
-    var event = new Event("click");
+    var event = new Event('click');
+
     target.dispatchEvent(event);
 }
 
@@ -87,7 +88,7 @@ function delegate(target, fn) {
    который вызовется только один раз и затем удалится
  */
 function once(target, fn) {
-    target.addEventListener('click', fn);
+    target.addEventListener('click', fn, { once: true });
 }
 
 export {
