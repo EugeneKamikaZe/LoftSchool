@@ -189,28 +189,32 @@ function collectDOMStat(root) {
         texts: 0
     };
 
-    for (let key of root.childNodes) {
-        if (key.nodeType == 3) {
-            obj.texts++;
-        }
-
-        if (key.nodeType == 1) {
-            if (key.tagName in obj.tags) {
-                obj.tags[key.tagName]++;
-            } else {
-                obj.tags[key.tagName] = 1;
+    function per(root) {
+        for (let key of root.childNodes) {
+            if (key.nodeType == 3) {
+                obj.texts++;
             }
-        }
 
-        for (let className of key.classList) {
-            if (className in obj.classes ) {
-                obj.classes[className]++;
-            } else {
-                obj.classes[className] = 1;
+            if (key.nodeType == 1) {
+                if (key.tagName in obj.tags) {
+                    obj.tags[key.tagName]++;
+                } else {
+                    obj.tags[key.tagName] = 1;
+                }
+
+                for (let className of key.classList) {
+                    if (className in obj.classes ) {
+                        obj.classes[className]++;
+                    } else {
+                        obj.classes[className] = 1;
+                    }
+                }
             }
-        }
 
+            per(key);
+        }
     }
+    per(root);
 
     return obj;
 }
