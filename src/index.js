@@ -79,8 +79,11 @@ function slice(array, from = 0, to = array.length) {
     from = from < 0 ? array.length - Math.abs(from) : from;
     from = from < 0 && Math.abs(from) > array.length ? 0 : from;
 
-    to = to < 0 ? array.length - Math.abs(to) :
-        to > array.length ? array.length : to;
+    if (to < 0) {
+        to = array.length - Math.abs(to)
+    } else if (to > array.length) {
+        to = array.length;
+    }
     
     for (let i = from; i<to; i++) {
         items.push(array[i]);
@@ -93,19 +96,17 @@ function slice(array, from = 0, to = array.length) {
  Задание 6 *:
 
  Функция принимает объект и должна вернуть Proxy для этого объекта
- Proxy должен перехватывать все попытки записи значений свойств и возводить это значение в квадрат
+ Proxy должен перехватывать все попытки записи значений свойств и
+ возводить это значение в квадрат
  */
 function createProxy(obj) {
-    let proxy = new Proxy(obj, {
-        set(obj, prop, value) {
-
-            obj[prop] = value;
+    return new Proxy(obj, {
+        set(obj, key, value) {
+            obj[key] = value ** 2;
 
             return true;
         }
     });
-
-    return proxy;
 }
 
 export {
