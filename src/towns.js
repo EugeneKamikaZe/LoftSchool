@@ -107,11 +107,7 @@ loadTowns().then(res => {
 filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
     filterResult.innerHTML = filterInput.value ?
-        cities
-            .filter(item => isMatching(item.name, filterInput.value))
-            .map(item => `${item.name}`)
-            .join('')
-        : '';
+
 });
 
 export {
