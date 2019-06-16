@@ -106,7 +106,7 @@ loadTowns().then(res => {
 
 filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
-    filterResult.innerHTML = filterInput.value ?
+    //filterResult.innerHTML = filterInput.value ?
 
 });
 
