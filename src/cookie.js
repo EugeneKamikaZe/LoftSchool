@@ -63,6 +63,7 @@ function parseCookie() {
     if (cookie) {
         return cookie.split('; ').reduce((prev, current) => {
             const [name, value] = current.split('=');
+
             prev[name] = value;
 
             return prev;
@@ -75,7 +76,7 @@ function parseCookie() {
 function renderTable(cookie = {}) {
     listTable.innerHTML = '';
 
-    for(const key in cookie){
+    for (const key in cookie) {
         if (cookie.hasOwnProperty(key)) {
             listTable.innerHTML += `<tr><td>${key}</td><td>${cookie[key]}</td><td><button>удалить</button></td></tr>`;
         }
@@ -90,8 +91,8 @@ function filter() {
     for (const key in cookie) {
         if (cookie.hasOwnProperty(key)) {
             const valueInput = filterNameInput.value.trim().toLowerCase(),
-                  name = key.toLowerCase(),
-                  value = cookie[key].toLowerCase();
+                name = key.toLowerCase(),
+                value = cookie[key].toLowerCase();
 
             if (!name.includes(valueInput) && !value.includes(valueInput)) {
                 delete cookie[key];
@@ -106,7 +107,7 @@ addButton.addEventListener('click', () => {
     // здесь можно обработать нажатие на кнопку "добавить cookie"
 
     const name = addNameInput.value.trim(),
-          value = addValueInput.value.trim();
+        value = addValueInput.value.trim();
 
     document.cookie = `${name}=${value}`;
 
@@ -116,8 +117,8 @@ addButton.addEventListener('click', () => {
 listTable.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON') {
         const tr = e.target.closest('tr'),
-              name = tr.firstElementChild.textContent,
-              date = new Date(0);
+            name = tr.firstElementChild.textContent,
+            date = new Date(0);
 
         document.cookie = `${name}=; path=/; expires=" ${date.toUTCString()}`;
         tr.remove();
