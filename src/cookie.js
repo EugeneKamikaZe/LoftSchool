@@ -89,11 +89,9 @@ function filter() {
 
     for (const key in cookie) {
         if (cookie.hasOwnProperty(key)) {
-            console.log(cookie[key])
             const valueInput = filterNameInput.value.trim().toLowerCase(),
                   name = key.toLowerCase(),
                   value = cookie[key].toLowerCase();
-            console.log(value)
 
             if (!name.includes(valueInput) && !value.includes(valueInput)) {
                 delete cookie[key];
@@ -125,6 +123,3 @@ listTable.addEventListener('click', (e) => {
         tr.remove();
     }
 });
-
-
-
