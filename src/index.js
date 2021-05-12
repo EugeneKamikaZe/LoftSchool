@@ -155,8 +155,16 @@ function deleteTextNodesRecursive(where) {
         if (child.nodeType == 1) {
             deleteTextNodesRecursive(child);
         }
+    if (to < 0) {
+        to = array.length - Math.abs(to)
+    } else if (to > array.length) {
+        to = array.length;
     }
+    
+    for (let i = from; i<to; i++) {
+        items.push(array[i]);
 
+    }
     return element;
 }
 
@@ -194,6 +202,15 @@ function collectDOMStat(root) {
             if (key.nodeType == 3) {
                 obj.texts++;
             }
+      /*    
+ Функция принимает объект и должна вернуть Proxy для этого объекта
+ Proxy должен перехватывать все попытки записи значений свойств и
+ возводить это значение в квадрат
+ */
+function createProxy(obj) {
+    return new Proxy(obj, {
+        set(obj, key, value) {
+            obj[key] = value ** 2;
 
             if (key.nodeType == 1) {
                 if (key.tagName in obj.tags) {
@@ -266,7 +283,9 @@ function observeChildNodes(where, fn) {
         });
     });
 
+
     observer.observe(where, { childList: true, subtree: true });
+
 }
 
 export {
